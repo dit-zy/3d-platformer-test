@@ -3,6 +3,8 @@
 /android/
 
 # project ignores
+builds/
+web-build/
 *.blend*?
 *.blend*?.import
 *.hdr
