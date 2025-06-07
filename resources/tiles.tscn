@@ -1,0 +1,48 @@
+[gd_scene load_steps=12 format=3 uid="uid://c31a3j27bkiid"]
+
+[ext_resource type="PackedScene" uid="uid://bt1ounjqvyl83" path="res://resources/tiles.blend" id="1_3gl3s"]
+[ext_resource type="Texture2D" uid="uid://cis1yv3u2xplt" path="res://resources/textures/floor_diffuse.png" id="2_y0apv"]
+[ext_resource type="Texture2D" uid="uid://6ac07elfwjo4" path="res://resources/textures/floor_metalic.png" id="3_k812e"]
+[ext_resource type="Texture2D" uid="uid://bxewm5mb2gs45" path="res://resources/textures/floor_normal.png" id="4_0obga"]
+[ext_resource type="Texture2D" uid="uid://dd01np5ajnqd" path="res://resources/textures/floor_roughness.png" id="5_qy0ln"]
+[ext_resource type="Texture2D" uid="uid://bmp4tfhexevpc" path="res://resources/textures/wall_diffuse.png" id="6_qy0ln"]
+[ext_resource type="Texture2D" uid="uid://js0puu3q4g0h" path="res://resources/textures/wall_metalic.png" id="7_acso2"]
+[ext_resource type="Texture2D" uid="uid://dcdxef3ebxxba" path="res://resources/textures/wall_normal.png" id="8_6usph"]
+[ext_resource type="Texture2D" uid="uid://evlqb8k6hjqb" path="res://resources/textures/wall_roughness.png" id="9_cpaae"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acso2"]
+albedo_texture = ExtResource("2_y0apv")
+metallic = 1.0
+metallic_texture = ExtResource("3_k812e")
+metallic_texture_channel = 4
+roughness_texture = ExtResource("5_qy0ln")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("4_0obga")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxu2c"]
+albedo_texture = ExtResource("6_qy0ln")
+metallic = 1.0
+metallic_texture = ExtResource("7_acso2")
+metallic_texture_channel = 4
+roughness_texture = ExtResource("9_cpaae")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("8_6usph")
+
+[node name="tiles" instance=ExtResource("1_3gl3s")]
+
+[node name="open_floor" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_acso2")
+
+[node name="single_wall" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hxu2c")
+
+[node name="single_wall" parent="single_wall" index="0"]
+collision_layer = 3
+
+[node name="double_wall" parent="." index="2"]
+visible = false
+
+[node name="double_wall" parent="double_wall" index="0"]
+collision_layer = 3

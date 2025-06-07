@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://dpo667frmu7rs"]
+
+[ext_resource type="Script" uid="uid://6kxinodql7i7" path="res://character.gd" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://dojng1qmn1v2s" path="res://character_env_detector.gd" id="2_pjt0s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vu45j"]
+albedo_color = Color(0.4, 0.25098, 0.843137, 1)
+disable_receive_shadows = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vu45j"]
+material = SubResource("StandardMaterial3D_vu45j")
+radius = 0.3
+height = 1.5
+radial_segments = 12
+rings = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_glpr6"]
+radial_segments = 8
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glpr6"]
+albedo_color = Color(0.00392157, 0.513726, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pjt0s"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_glpr6"]
+radius = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjt0s"]
+albedo_color = Color(0, 0.831373, 1, 1)
+emission_enabled = true
+emission = Color(0, 0.8, 1, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjt0s"]
+material = SubResource("StandardMaterial3D_pjt0s")
+radius = 0.01
+height = 1.0
+radial_segments = 4
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wa5vi"]
+albedo_color = Color(0.839216, 0.537255, 1, 1)
+emission_enabled = true
+emission = Color(0.858824, 0.137255, 0.988235, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wfnr8"]
+material = SubResource("StandardMaterial3D_wa5vi")
+radius = 0.01
+height = 0.5
+radial_segments = 4
+rings = 4
+
+[node name="character" type="CharacterBody3D"]
+input_ray_pickable = false
+script = ExtResource("1_glpr6")
+
+[node name="cam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19602, 0)
+current = true
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_vu45j")
+
+[node name="face" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(0.506472, 0, 0, 0, -1.0442e-08, 0.221107, 0, -0.238885, -9.6649e-09, 0, 0.421448, -0.0855066)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_glpr6")
+surface_material_override/0 = SubResource("StandardMaterial3D_glpr6")
+
+[node name="collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_pjt0s")
+
+[node name="env_detector" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.825, 0)
+collision_layer = 0
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+monitorable = false
+script = ExtResource("2_pjt0s")
+num_rays = 16
+detection_distance = 1.0
+max_ray_misalignment_angle = 0.523599
+valid_norm_color = Color(0.67451, 0.945098, 0, 1)
+invalid_norm_color = Color(0.866667, 0.152941, 0.466667, 1)
+
+[node name="collider" type="CollisionShape3D" parent="env_detector"]
+shape = SubResource("SphereShape3D_glpr6")
+
+[node name="debugcube" type="MeshInstance3D" parent="env_detector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CapsuleMesh_pjt0s")
+
+[node name="debugnorm" type="MeshInstance3D" parent="env_detector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("CapsuleMesh_wfnr8")
+skeleton = NodePath("../debugcube")

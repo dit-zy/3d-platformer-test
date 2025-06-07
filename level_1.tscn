@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1v4ubc1u3kp1"]
+
+[ext_resource type="PackedScene" uid="uid://dpo667frmu7rs" path="res://character.tscn" id="1_hbghi"]
+[ext_resource type="Texture2D" uid="uid://bxef7g26p4mpx" path="res://resources/hdris/kloppenheim_04_4k.hdr" id="2_ihfcg"]
+[ext_resource type="PackedScene" uid="uid://bikmyvstx6lwr" path="res://death_plane.tscn" id="3_hn12h"]
+[ext_resource type="MeshLibrary" uid="uid://wq8t8w37q7dw" path="res://resources/tiles.tres" id="3_ihfcg"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_rka8t"]
+panorama = ExtResource("2_ihfcg")
+
+[sub_resource type="Sky" id="Sky_5hph3"]
+sky_material = SubResource("PanoramaSkyMaterial_rka8t")
+
+[sub_resource type="Environment" id="Environment_j7kpp"]
+background_mode = 2
+sky = SubResource("Sky_5hph3")
+sky_rotation = Vector3(0, 3.96364, 0)
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.5
+ambient_light_energy = 3.0
+
+[node name="level1" type="Node3D"]
+
+[node name="character" parent="." instance=ExtResource("1_hbghi")]
+speed = 5.0
+accel_time = 0.175
+jump_speed = 7.0
+mouse_sensitivity = 0.001
+coyote_time_ms = 500
+fov = 80.0
+sprint_fov = 100.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j7kpp")
+
+[node name="sun" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.466565, -0.757793, -0.456144, -0.337631, -0.629252, 0.700033, -0.817509, -0.172603, -0.549442, 0, -5, 0)
+light_energy = 10.0
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="level_geometry" type="Node3D" parent="."]
+
+[node name="death_plane" parent="level_geometry" instance=ExtResource("3_hn12h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+
+[node name="GridMap" type="GridMap" parent="level_geometry"]
+mesh_library = ExtResource("3_ihfcg")
+cell_size = Vector3(4, 1, 4)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+collision_layer = 3
+data = {
+"cells": PackedInt32Array(-65536, 65534, 0, -65536, 65530, 0, -65536, 65528, 0, -65536, 65526, 2, -65536, 65524, 2, -65536, 65522, 2, -65536, 65520, 0, -65536, 65518, 0, -65536, 0, 0, -65534, 65520, 0, -65534, 65522, 0, -65534, 65524, 0, -65534, 65526, 0, -65534, 65528, 0, -65531, 65528, 1, -65531, 65526, 1, -65531, 65524, 1, -65531, 65522, 1, -65531, 65520, 1)
+}
+metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[connection signal="body_entered" from="level_geometry/death_plane" to="character" method="_on_death_plane_entered"]

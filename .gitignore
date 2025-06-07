@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# project ignores
+*.blend*?
+*.blend*?.import
+*.hdr
+*.hdr.import
+*.hdri
+*.hdri.import
+*.exr
+*.exr.import
