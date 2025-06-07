@@ -122,19 +122,16 @@ func update_walls() -> void:
 	set_wall_riding(wall_dir != Vector3.ZERO)
 
 
-@warning_ignore("shadowed_variable")
+@warning_ignore_start("shadowed_variable")
 func set_sprinting(state: bool = true) -> void:
 	if state: set_state(CharState.SPRINTING)
 	else: unset_state(CharState.SPRINTING)
-@warning_ignore("shadowed_variable")
 func set_wall_riding(state: bool = true) -> void:
 	if state: set_state(CharState.WALL_RIDING)
 	else: unset_state(CharState.WALL_RIDING)
-@warning_ignore("shadowed_variable")
 func set_jumping(state: bool = true) -> void:
 	if state: set_state(CharState.JUMPING)
 	else: unset_state(CharState.JUMPING)
-@warning_ignore("shadowed_variable")
 func set_bjumping(state: bool = true) -> void:
 	if state: set_state(CharState.BOUNCE_JUMPING)
 	else: unset_state(CharState.BOUNCE_JUMPING)
@@ -178,6 +175,7 @@ func clear_state() -> void:
 	state = 0
 func was_state(statemask: int) -> bool:
 	return last_state & statemask != 0
+@warning_ignore_restore("shadowed_variable")
 
 
 enum CharState {
