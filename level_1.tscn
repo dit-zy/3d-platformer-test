@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1v4ubc1u3kp1"]
+[gd_scene load_steps=10 format=3 uid="uid://d1v4ubc1u3kp1"]
 
+[ext_resource type="Script" uid="uid://cvyo1sn7cmefy" path="res://level_1.gd" id="1_5hph3"]
 [ext_resource type="PackedScene" uid="uid://dpo667frmu7rs" path="res://character.tscn" id="1_hbghi"]
 [ext_resource type="Texture2D" uid="uid://bxef7g26p4mpx" path="res://resources/hdris/kloppenheim_04_4k.hdr" id="2_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://bikmyvstx6lwr" path="res://death_plane.tscn" id="3_hn12h"]
 [ext_resource type="MeshLibrary" uid="uid://wq8t8w37q7dw" path="res://resources/tiles.tres" id="3_ihfcg"]
+[ext_resource type="PackedScene" uid="uid://co5b8bkxacsiu" path="res://keybind_settings.tscn" id="5_rka8t"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_rka8t"]
 panorama = ExtResource("2_ihfcg")
@@ -20,6 +22,7 @@ ambient_light_sky_contribution = 0.5
 ambient_light_energy = 3.0
 
 [node name="level1" type="Node3D"]
+script = ExtResource("1_5hph3")
 
 [node name="character" parent="." instance=ExtResource("1_hbghi")]
 speed = 5.0
@@ -55,5 +58,10 @@ data = {
 "cells": PackedInt32Array(-65536, 65534, 0, -65536, 65530, 0, -65536, 65528, 0, -65536, 65526, 2, -65536, 65524, 2, -65536, 65522, 2, -65536, 65520, 0, -65536, 65518, 0, -65536, 0, 0, -65534, 65520, 0, -65534, 65522, 0, -65534, 65524, 0, -65534, 65526, 0, -65534, 65528, 0, -65531, 65528, 1, -65531, 65526, 1, -65531, 65524, 1, -65531, 65522, 1, -65531, 65520, 1)
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="keybind_settings" parent="gui" instance=ExtResource("5_rka8t")]
+visible = false
 
 [connection signal="body_entered" from="level_geometry/death_plane" to="character" method="_on_death_plane_entered"]

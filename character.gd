@@ -12,6 +12,8 @@ extends CharacterBody3D
 @onready var cam = $cam
 
 
+var game_state: GameState
+
 var state: int = 0
 var last_state: int = 0
 
@@ -26,6 +28,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if game_state.in_menu: return
+	
 	var time_ms = Time.get_ticks_msec()
 	
 	update_walls()
@@ -95,15 +99,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
-		return
-	
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or game_state.in_menu: return
+		
 	if Input.is_action_just_pressed("toggle_debug"):
 		$env_detector.toggle_debug_enabled()
 	

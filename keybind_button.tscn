@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk8dbgsnoch8s"]
+
+[ext_resource type="Theme" uid="uid://do7l7mi3b8iju" path="res://resources/ ui_theme.tres" id="1_mmlis"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtvdw"]
+bg_color = Color(0, 0, 0, 0.74902)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmlis"]
+bg_color = Color(0.8, 0.8, 0.8, 0.74902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjluo"]
+bg_color = Color(0, 0, 0, 0.74902)
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(0, 72)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_jtvdw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mmlis")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pjluo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="l_action" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_mmlis")
+text = "action name"
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="l_input" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_mmlis")
+text = "input key"
+vertical_alignment = 1

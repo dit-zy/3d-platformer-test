@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://do7l7mi3b8iju"]
+
+[ext_resource type="FontFile" uid="uid://c7nqvrrwutp7j" path="res://fonts/TimeburnerBold-peGR.ttf" id="1_lonan"]
+
+[resource]
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_lonan")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_lonan")
